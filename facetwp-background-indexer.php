@@ -29,7 +29,7 @@ class FacetWP_Background_Indexer {
 	 * Init
 	 */
 	public function init() {
-		require_once plugin_dir_path( __FILE__ ) . 'wp-background-processing/classes/wp-background-process.php';
+		require_once plugin_dir_path( __FILE__ ) . 'wp-background-processing/wp-background-processing.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class-indexer-process.php';
 
 		$this->process_all    = new FWP_Indexer_Process();
@@ -77,6 +77,10 @@ class FacetWP_Background_Indexer {
 	protected function handle_all() {
 
 		global $wpdb;
+
+		/** clear any running indexes */
+        update_option( 'facetwp_transients', '' );
+        update_option( 'facetwp_indexing', '' );
 
 		$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}facetwp_index" );
 

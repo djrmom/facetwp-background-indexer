@@ -31,6 +31,8 @@ class FWP_Indexer_Process extends WP_Background_Process {
 		parent::complete();
 
 		update_option( 'facetwp_last_indexed', time() );
+        update_option( 'facetwp_transients', '' );
+        update_option( 'facetwp_indexing', '' );
 
 		error_log( 'FacetWP Background Indexing Complete' );
 	}
